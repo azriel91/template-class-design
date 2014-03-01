@@ -28,6 +28,8 @@ namespace store {
 
 template<class ImageClass>
 class BasicImageStore : public ImageStore, public ImageRepository<ImageClass> {
+	typedef typename std::remove_pointer<ImageClass>::type ImageClassType;
+	static_assert(std::is_base_of<Image, ImageClassType>::value, "ImageClass must extend im::azriel::spikes::image::Image");
 private:
 	/**
 	 * The image loader to load images.

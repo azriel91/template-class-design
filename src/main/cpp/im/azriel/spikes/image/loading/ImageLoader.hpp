@@ -24,6 +24,8 @@ namespace loading {
 
 template <class ImageClass>
 class ImageLoader {
+	typedef typename std::remove_pointer<ImageClass>::type ImageClassType;
+	static_assert(std::is_base_of<Image, ImageClassType>::value, "ImageClass must extend im::azriel::spikes::image::Image");
 public:
 	ImageLoader() {}
 	virtual ~ImageLoader() {}
