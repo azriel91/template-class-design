@@ -1,0 +1,77 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+							 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>im.azriel.spikes</groupId>
+	<artifactId>template-class-investigation</artifactId>
+	<packaging>nar</packaging>
+	<version>1.0-SNAPSHOT</version>
+
+	<dependencies>
+		<dependency>
+			<groupId>google-test</groupId>
+			<artifactId>gmock</artifactId>
+			<type>nar</type>
+			<version>1.7.0</version>
+		</dependency>
+		<dependency>
+			<groupId>google-test</groupId>
+			<artifactId>gtest</artifactId>
+			<type>nar</type>
+			<version>1.7.0</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.github.maven-nar</groupId>
+				<artifactId>nar-maven-plugin</artifactId>
+				<version>3.0.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<libraries>
+						<library>
+							<type>static</type>
+						</library>
+					</libraries>
+					<linker>
+						<sysLibs>
+							<sysLib>
+								<name>pthread</name>
+								<type>shared</type>
+							</sysLib>
+						</sysLibs>
+					</linker>
+					<cpp>
+						<debug>true</debug>
+						<sourceDirectory>src/main/cpp</sourceDirectory>
+
+						<!-- [none], size, minimal, speed, full, aggressive, extreme, unsafe -->
+						<optimize>none</optimize>
+						<includePaths>
+							<includePath>${project.basedir}/src/main/cpp</includePath>
+						</includePaths>
+						<options>
+							<option>--std=c++0x</option>
+							<option>-g</option>
+						</options>
+					</cpp>
+					<tests>
+						<test>
+							<!-- "Test" is the name of the test executable -->
+							<name>Test</name>
+							<link>static</link>
+							<args>
+								<arg>--gtest_output=xml</arg>
+								<arg>--gtest_color=yes</arg>
+							</args>
+						</test>
+					</tests>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
